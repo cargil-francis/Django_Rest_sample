@@ -1,22 +1,26 @@
 import requests
 
-def create_book(title, author):
+def create_book(title, author,description,created_at):
     headers={
         'title':title,
-        'author':author
+        'author':author,
+        'description':description,
+        'created_at':created_at
     }
     response = requests.post('http://127.0.0.1:8000/books/', headers)
-    print(f"New book {title} by {author} has been created,\n\n")
+    print(f"New book {title} by {author}with{description} and {created_at} has been created,\n\n")
 
 def get_all_books():
     response = requests.get('http://127.0.0.1:8000/books/')
     return response.json()
 
 
-create_book('Parallel worlds', 'Michio Kaku')
+create_book('Parallel worlds', 'Michio Kaku', 'This the book description' ,'2018-2-12')
 
 books = get_all_books()
 for book in books:
     print(f"Book {book['id']}:")
     print(f"  Title: {book['title']}")
     print(f"  By: {book['author']}")
+    print(f" summary:{book['description']}")
+    print(f" date:{book[created_at]}")
