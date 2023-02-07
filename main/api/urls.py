@@ -1,11 +1,11 @@
-from django.urls import include, path
-from rest_framework import routers
-from .views import BookViewSet
-
-
-router = routers.DefaultRouter()
-router.register(r'books', BookViewSet)
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+from .views import BookListView, BookCreateView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('books/', BookListView.as_view(), name='book-list'),
+    path('books/create', BookCreateView.as_view(), name='book-create'),
+
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
